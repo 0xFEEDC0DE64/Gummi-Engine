@@ -1,14 +1,3 @@
-var DELTAT = .01;
-var SEGLEN = 10;
-var SPRINGK = 10;
-var MASS = 1;
-var GRAVITY = 50;
-var RESISTANCE = 10;
-var STOPVEL = 0.1;
-var STOPACC = 0.1;
-var DOTSIZE = 32;
-var BOUNCE = 0.75;
-
 class Vector2 {
 	constructor(vec, y) {
 		if(typeof vec === "undefined" &&
@@ -159,49 +148,65 @@ $(document).ready(function($) {
 	for (var i = 0; i < 8; i++) {
 		entities.push(new Entity());
 	}
+	
+	var mousePosition = new Vector2;
 
 	$(document).mousemove(function(event) {
-		entities[0].position = new Vector2(
+		mousePosition = new Vector2(
 			event.pageX,
 			event.pageY
 		);
 	});
 
 	setInterval(function() {
+		var DELTAT = parseFloat($('#input_deltat').val());
+		var SEGLEN = parseFloat($('#input_seglen').val());
+		var SPRINGK = parseFloat($('#input_springk').val());
+		var MASS = parseFloat($('#input_mass').val());
+		var GRAVITY = parseFloat($('#input_gravity').val());
+		var RESISTANCE = parseFloat($('#input_resistance').val());
+		var STOPVEL = parseFloat($('#input_stopvel').val());
+		var STOPACC = parseFloat($('#input_stopacc').val());
+		var BOUNCE = parseFloat($('#input_bounce').val());
+		
+		$('#display_deltat').text(DELTAT);
+		$('#display_seglen').text(SEGLEN);
+		$('#display_springk').text(SPRINGK);
+		$('#display_mass').text(MASS);
+		$('#display_gravity').text(GRAVITY);
+		$('#display_resistance').text(RESISTANCE);
+		$('#display_stopvel').text(STOPVEL);
+		$('#display_stopacc').text(STOPACC);
+		$('#display_bounce').text(BOUNCE);
+
 		var windowSize = new Vector2($(window).width(), $(window).height());
 		
 		$.each(entities, function(i, entity){
-			if(i > 0) {
-				var spring = new Vector2();
-				
-				var springForce = function(i, j) {
-					var d = i.sub(j);
-					var len = d.length();
-					return len > SEGLEN ? d.div(len).mul(SPRINGK).mul(len - SEGLEN) : new Vector2();
-				}
-
-				if (i > 0) {
-					spring = spring.add(springForce(entities[i - 1].position, entity.position));
-				}
-
-				if (i < (entities.length - 1)) {
-					spring = spring.add(springForce(entities[i + 1].position, entity.position));
-				}
-
-				var resist = entity.speed.mul(-RESISTANCE);
-				var accel = spring.add(resist).div(MASS).add(0, GRAVITY);
-
-				entity.speed = entity.speed.add(accel.mul(DELTAT));
-
-				if (Math.abs(entity.speed.getX()) < STOPVEL &&
-					Math.abs(entity.speed.getY()) < STOPVEL &&
-					Math.abs(accel.getX()) < STOPACC &&
-					Math.abs(accel.getY()) < STOPACC) {
-					entity.speed = new Vector2();
-				}
-
-				entity.position = entity.position.add(entity.speed);
+			var springForce = function(i, j) {
+				var d = i.sub(j);
+				var len = d.length();
+				return len > SEGLEN ? d.div(len).mul(SPRINGK).mul(len - SEGLEN) : new Vector2();
 			}
+
+		    var spring = springForce(i > 0 ? entities[i - 1].position : mousePosition, entity.position);
+
+			if (i < (entities.length - 1)) {
+				spring = spring.add(springForce(entities[i + 1].position, entity.position));
+			}
+
+			var resist = entity.speed.mul(-RESISTANCE);
+			var accel = spring.add(resist).div(MASS).add(0, GRAVITY);
+
+			entity.speed = entity.speed.add(accel.mul(DELTAT));
+
+			if (Math.abs(entity.speed.getX()) < STOPVEL &&
+				Math.abs(entity.speed.getY()) < STOPVEL &&
+				Math.abs(accel.getX()) < STOPACC &&
+				Math.abs(accel.getY()) < STOPACC) {
+				entity.speed = new Vector2();
+			}
+
+			entity.position = entity.position.add(entity.speed);
 
 			if (entity.position.getX() < 0) {
 				if (entity.speed.getX() < 0) {

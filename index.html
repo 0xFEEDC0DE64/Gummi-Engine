@@ -3,25 +3,37 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>Gummi Engine</title>
-		<meta name="description" content="">
+        <title>Gummi Engine</title>
+        <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<style type="text/css">
-			.point {
-				position: absolute;
-				width: 30px;
-				height: 30px;
-				background-color: #000;
-			}
-		</style>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css" />
-	</head>
-	<body>
-		<h1>Gummi Engine</h1>
-		<a class="github-fork-ribbon" href="https://github.com/0xFEEDC0DE64/Gummi-Engine" title="Fork me on GitHub">Fork me on GitHub</a>
+        <style type="text/css">
+            .point {
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                background-color: #000;
+            }
+        </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css" />
+    </head>
+    <body>
+        <h1>Gummi Engine</h1>
+        <a class="github-fork-ribbon" href="https://github.com/0xFEEDC0DE64/Gummi-Engine" title="Fork me on GitHub">Fork me on GitHub</a>
 		
-		<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-		<script type="text/javascript" src="script.js"></script>
-	</body>
+		<form>
+			<label>DELTAT: <input type="range" id="input_deltat" value=".01" min="-2" max="2" step=".0001" /></label> <span id="display_deltat"></span><br />
+			<label>SEGLEN: <input type="range" id="input_seglen" value="10" min="-10" max="20" step=".1" /></label> <span id="display_seglen"></span><br />
+			<label>SPRINGK: <input type="range" id="input_springk" value="10" min="-10" max="20" step=".1" /></label> <span id="display_springk"></span><br />
+			<label>MASS: <input type="range" id="input_mass" value="1" min="-2" max="2" step=".01" /></label> <span id="display_mass"></span><br />
+			<label>GRAVITY: <input type="range" id="input_gravity" value="50" min="-10" max="100" step=".1" /></label> <span id="display_gravity"></span><br />
+			<label>RESISTANCE: <input type="range" id="input_resistance" value="10" min="-10" max="50" step=".1" /></label> <span id="display_resistance"></span><br />
+			<label>STOPVEL: <input type="range" id="input_stopvel" value=".1" min="-2" max="2" step=".001" /></label> <span id="display_stopvel"></span><br />
+			<label>STOPACC: <input type="range" id="input_stopacc" value=".1" min="-2" max="2" step=".001" /></label> <span id="display_stopacc"></span><br />
+			<label>BOUNCE: <input type="range" id="input_bounce" value=".75" min="-2" max="2" step=".001" /></label> <span id="display_bounce"></span>
+		</form>
+        
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="script.js"></script>
+    </body>
 </html>
