@@ -136,31 +136,45 @@ class Vector2 {
 
 $(document).ready(function($) {
     var entities = [];
-	
-	var entityId = 0;
+    
+    var entityId = 0;
     
     class Entity {
         constructor() {
-			this.id = entityId++;
+            var entity = this;
+            this.id = entityId++;
             this.position = new Vector2();
             this.speed = new Vector2();
-            var elem = this.elem = $('<div>').addClass('point').appendTo('body');
-			this.row = $('<tr>').appendTo('#table_entities');
-			this.columns = {
-				id: $('<td>').text(this.id).appendTo(this.row),
-				position: $('<td>').appendTo(this.row),
-				speed: $('<td>').appendTo(this.row),
-				color: $('<td>').appendTo(this.row),
-				actions: $('<td>').appendTo(this.row),
-			}
-			$('<input />')
-				.attr('type', 'color')
-				.change(function(){
-					console.log($(this).val());
-					elem.css('background-color', $(this).val());
-				})
-				.appendTo(this.columns.color)
-				.change();
+            this.elem = $('<div>').addClass('point').appendTo('body');
+            this.row = $('<tr>').appendTo('#table_entities');
+            this.columns = {
+                id: $('<td>').text(this.id).appendTo(this.row),
+                position: $('<td>').appendTo(this.row),
+                speed: $('<td>').appendTo(this.row),
+                color: $('<td>').appendTo(this.row),
+                actions: $('<td>').appendTo(this.row),
+            }
+            $('<input />')
+                .attr('type', 'color')
+                .change(function(){
+                    entity.elem.css('background-color', $(this).val());
+                })
+                .appendTo(this.columns.color)
+                .change();
+            $('<button>')
+                .addClass('btn btn-xs btn-danger')
+                .text(' Löschen')
+                .prepend($('<i>').addClass('glyphicon glyphicon-trash'))
+                .appendTo(this.columns.actions)
+                .click(function(){
+					entity.elem.remove();
+					entity.row.remove();
+					
+                    var index = entities.indexOf(entity);
+                    if (index > -1) {
+                        entities.splice(index, 1);
+                    }
+                });
         }
     };
     
@@ -276,8 +290,8 @@ $(document).ready(function($) {
                 'left': entity.position.getX(),
                 'top': entity.position.getY()
             });
-			entity.columns.position.text(Math.round(entity.position.getX()) + ', ' + Math.round(entity.position.getY()));
-			entity.columns.speed.text(Math.round(entity.speed.getX()) + ', ' + Math.round(entity.speed.getY()));
+            entity.columns.position.text(Math.round(entity.position.getX()) + ', ' + Math.round(entity.position.getY()));
+            entity.columns.speed.text(Math.round(entity.speed.getX()) + ', ' + Math.round(entity.speed.getY()));
         });
     }, 20);
 });
