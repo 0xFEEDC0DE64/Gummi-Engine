@@ -169,6 +169,11 @@ $(document).ready(function($) {
 		var STOPACC = parseFloat($('#input_stopacc').val());
 		var BOUNCE = parseFloat($('#input_bounce').val());
 		
+		var collisionUp = $('#input_collisionUp').is(':checked');
+		var collisionLeft = $('#input_collisionLeft').is(':checked');
+		var collisionRight = $('#input_collisionRight').is(':checked');
+		var collisionDown = $('#input_collisionDown').is(':checked');
+		
 		$('#display_deltat').text(DELTAT);
 		$('#display_seglen').text(SEGLEN);
 		$('#display_springk').text(SPRINGK);
@@ -208,25 +213,40 @@ $(document).ready(function($) {
 
 			entity.position = entity.position.add(entity.speed);
 
-			if (entity.position.getX() < 0) {
-				if (entity.speed.getX() < 0) {
-					entity.speed.setX(BOUNCE * -entity.speed.getX());
+			if(collisionLeft) {
+				if (entity.position.getX() < 0) {
+					if (entity.speed.getX() < 0) {
+						entity.speed.setX(BOUNCE * -entity.speed.getX());
+					}
+					entity.position.setX(0);
 				}
-				entity.position.setX(0);
 			}
 
-			if (entity.position.getX() >= windowSize.getX() - entity.elem.width()) {
-				if (entity.speed.getX() > 0) {
-					entity.speed.setX(BOUNCE * -entity.speed.getX());
+			if(collisionUp) {
+				if (entity.position.getY() < 0) {
+					if (entity.speed.getY() < 0) {
+						entity.speed.setY(BOUNCE * -entity.speed.getY());
+					}
+					entity.position.setY(0);
 				}
-				entity.position.setX(windowSize.getX() - entity.elem.width());
 			}
 
-			if (entity.position.getY() >=  windowSize.getY() - entity.elem.height()) {
-				if (entity.speed.getY() > 0) {
-					entity.speed.setY(BOUNCE * -entity.speed.getY());
+			if(collisionRight) {
+				if (entity.position.getX() >= windowSize.getX() - entity.elem.width()) {
+					if (entity.speed.getX() > 0) {
+						entity.speed.setX(BOUNCE * -entity.speed.getX());
+					}
+					entity.position.setX(windowSize.getX() - entity.elem.width());
 				}
-				entity.position.setY(windowSize.getY() - entity.elem.height());
+			}
+
+			if(collisionDown) {
+				if (entity.position.getY() >=  windowSize.getY() - entity.elem.height()) {
+					if (entity.speed.getY() > 0) {
+						entity.speed.setY(BOUNCE * -entity.speed.getY());
+					}
+					entity.position.setY(windowSize.getY() - entity.elem.height());
+				}
 			}
 
 			entity.elem.css({

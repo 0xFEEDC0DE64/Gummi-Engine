@@ -22,15 +22,40 @@
         <a class="github-fork-ribbon" href="https://github.com/0xFEEDC0DE64/Gummi-Engine" title="Fork me on GitHub">Fork me on GitHub</a>
 		
 		<form>
-			<label>DELTAT: <input type="range" id="input_deltat" value=".01" min="-2" max="2" step=".0001" /></label> <span id="display_deltat"></span><br />
-			<label>SEGLEN: <input type="range" id="input_seglen" value="10" min="-10" max="20" step=".1" /></label> <span id="display_seglen"></span><br />
-			<label>SPRINGK: <input type="range" id="input_springk" value="10" min="-10" max="20" step=".1" /></label> <span id="display_springk"></span><br />
-			<label>MASS: <input type="range" id="input_mass" value="1" min="-2" max="2" step=".01" /></label> <span id="display_mass"></span><br />
-			<label>GRAVITY: <input type="range" id="input_gravity" value="50" min="-10" max="100" step=".1" /></label> <span id="display_gravity"></span><br />
-			<label>RESISTANCE: <input type="range" id="input_resistance" value="10" min="-10" max="50" step=".1" /></label> <span id="display_resistance"></span><br />
-			<label>STOPVEL: <input type="range" id="input_stopvel" value=".1" min="-2" max="2" step=".001" /></label> <span id="display_stopvel"></span><br />
-			<label>STOPACC: <input type="range" id="input_stopacc" value=".1" min="-2" max="2" step=".001" /></label> <span id="display_stopacc"></span><br />
-			<label>BOUNCE: <input type="range" id="input_bounce" value=".75" min="-2" max="2" step=".001" /></label> <span id="display_bounce"></span>
+			<fieldset>
+				<legend>Konstanten:</legend>
+				
+				<label for="input_deltat">DELTAT:</label> <input type="range" id="input_deltat" value=".01" min="-2" max="2" step=".0001" /> <span id="display_deltat"></span><br />
+				<label for="input_seglen">SEGLEN:</label> <input type="range" id="input_seglen" value="10" min="-10" max="20" step=".1" /> <span id="display_seglen"></span><br />
+				<label for="input_springk">SPRINGK:</label> <input type="range" id="input_springk" value="10" min="-10" max="20" step=".1" /> <span id="display_springk"></span><br />
+				<label for="input_mass">MASS:</label> <input type="range" id="input_mass" value="1" min="-2" max="2" step=".01" /> <span id="display_mass"></span><br />
+				<label for="input_gravity">GRAVITY:</label> <input type="range" id="input_gravity" value="50" min="-10" max="100" step=".1" /> <span id="display_gravity"></span><br />
+				<label for="input_resistance">RESISTANCE:</label> <input type="range" id="input_resistance" value="10" min="-10" max="50" step=".1" /> <span id="display_resistance"></span><br />
+				<label for="input_stopvel">STOPVEL:</label> <input type="range" id="input_stopvel" value=".1" min="-2" max="2" step=".001" /> <span id="display_stopvel"></span><br />
+				<label for="input_stopacc">STOPACC:</label> <input type="range" id="input_stopacc" value=".1" min="-2" max="2" step=".001" /> <span id="display_stopacc"></span><br />
+				<label for="input_bounce">BOUNCE:</label> <input type="range" id="input_bounce" value=".75" min="-2" max="2" step=".001" /> <span id="display_bounce"></span>
+			</fieldset>
+			
+			<fieldset>
+				<legend>Kollisionen:</legend>
+				
+				<table>
+					<tr>
+						<td></td>
+						<td><input type="checkbox" id="input_collisionUp" checked /></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="input_collisionLeft" checked /></td>
+						<td></td>
+						<td><input type="checkbox" id="input_collisionRight" checked /></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="checkbox" id="input_collisionDown" checked /></td>
+						<td></td>
+					</tr>
+			</fieldset>
 		</form>
         
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
