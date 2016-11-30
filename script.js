@@ -144,14 +144,23 @@ $(document).ready(function($) {
 			this.id = entityId++;
             this.position = new Vector2();
             this.speed = new Vector2();
-            this.elem = $('<div>').addClass('point').appendTo('body');
+            var elem = this.elem = $('<div>').addClass('point').appendTo('body');
 			this.row = $('<tr>').appendTo('#table_entities');
 			this.columns = {
 				id: $('<td>').text(this.id).appendTo(this.row),
 				position: $('<td>').appendTo(this.row),
 				speed: $('<td>').appendTo(this.row),
+				color: $('<td>').appendTo(this.row),
 				actions: $('<td>').appendTo(this.row),
 			}
+			$('<input />')
+				.attr('type', 'color')
+				.change(function(){
+					console.log($(this).val());
+					elem.css('background-color', $(this).val());
+				})
+				.appendTo(this.columns.color)
+				.change();
         }
     };
     
