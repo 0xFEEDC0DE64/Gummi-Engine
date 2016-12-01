@@ -154,7 +154,7 @@ $(document).ready(function($) {
                 color: $('<td>').appendTo(this.row),
                 actions: $('<td>').appendTo(this.row),
             }
-            $('<input />')
+            this.colorPicker = $('<input />')
                 .attr('type', 'color')
                 .change(function(){
                     entity.elem.css('background-color', $(this).val());
@@ -181,6 +181,37 @@ $(document).ready(function($) {
     $('#button_add').click(function(){
         entities.push(new Entity());
     });
+	
+	$('#button_rainbow').click(function(){
+		var generateColors = function(count) {
+			var generateColor = function(position) {
+				var makeCode = function(r, g, b) {
+					return '#' +
+					(r < 16 ? '0' : '') + Math.round(r).toString(16) +
+					(g < 16 ? '0' : '') + Math.round(g).toString(16) +
+					(b < 16 ? '0' : '') + Math.round(b).toString(16);
+				}
+
+					 if(position >= 0 && position <= 255)     return makeCode(255,                    position,               0);
+				else if(position >= 256 && position <= 511)   return makeCode(255 - (position - 256), 255,                    0);
+				else if(position >= 512 && position <= 767)   return makeCode(0,                      255,                    position - 512);
+				else if(position >= 768 && position <= 1023)  return makeCode(0,                      255 - (position - 768), 255);
+				else if(position >= 1024 && position <= 1279) return makeCode(position - 1024,        0,                      255);
+				else if(position >= 1280 && position <= 1535) return makeCode(255,                    0,                      255 - (position - 1280));
+			};
+
+			var colors = [];
+			for(var position = 0; position <= 1535; position += (1536 / count))
+				colors.push(generateColor(position));
+			return colors;
+		};
+		
+		var colors = generateColors(entities.length);
+		for(var i = 0; i < entities.length; i++) {
+			entities[i].elem.css('background-color', colors[i]);
+			entities[i].colorPicker.val(colors[i]);
+		}
+	});
     
     for (var i = 0; i < 8; i++) {
         $('#button_add').click();
