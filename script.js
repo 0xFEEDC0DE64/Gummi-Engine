@@ -187,17 +187,17 @@ $(document).ready(function($) {
 			var generateColor = function(position) {
 				var makeCode = function(r, g, b) {
 					return '#' +
-					(r < 16 ? '0' : '') + Math.round(r).toString(16) +
-					(g < 16 ? '0' : '') + Math.round(g).toString(16) +
-					(b < 16 ? '0' : '') + Math.round(b).toString(16);
+					(r < 16 ? '0' : '') + parseInt(r).toString(16) +
+					(g < 16 ? '0' : '') + parseInt(g).toString(16) +
+					(b < 16 ? '0' : '') + parseInt(b).toString(16);
 				}
 
-					 if(position >= 0 && position <= 255)     return makeCode(255,                    position,               0);
-				else if(position >= 256 && position <= 511)   return makeCode(255 - (position - 256), 255,                    0);
-				else if(position >= 512 && position <= 767)   return makeCode(0,                      255,                    position - 512);
-				else if(position >= 768 && position <= 1023)  return makeCode(0,                      255 - (position - 768), 255);
-				else if(position >= 1024 && position <= 1279) return makeCode(position - 1024,        0,                      255);
-				else if(position >= 1280 && position <= 1535) return makeCode(255,                    0,                      255 - (position - 1280));
+					 if(position >= 0 && position < 256)     return makeCode(255,                    position,               0);
+				else if(position >= 256 && position < 512)   return makeCode(255 - (position - 256), 255,                    0);
+				else if(position >= 512 && position < 768)   return makeCode(0,                      255,                    position - 512);
+				else if(position >= 768 && position < 1024)  return makeCode(0,                      255 - (position - 768), 255);
+				else if(position >= 1024 && position < 1280) return makeCode(position - 1024,        0,                      255);
+				else if(position >= 1280 && position < 1536) return makeCode(255,                    0,                      255 - (position - 1280));
 			};
 
 			var colors = [];
